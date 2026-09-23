@@ -21,6 +21,7 @@ graph TD
     A --> C[lib/monitor.sh - Verificação do Sistema]
     A --> D[lib/backup.sh - Rotinas de Backup]
     A --> E[config/sysops.conf - Parâmetros]
+```
 
 ---
 
