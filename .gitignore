@@ -1,0 +1,7 @@
+# Configurações locais/sensíveis
+config/sysops.conf
+
+# Arquivos temporários e logs de teste
+*.tmp
+*.log
+logs/
