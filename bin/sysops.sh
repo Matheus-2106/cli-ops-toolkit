@@ -16,6 +16,13 @@ else
     exit 1
 fi
 
+if [[ -f "${SCRIPT_DIR}/lib/monitor.sh" ]]; then
+    source "${SCRIPT_DIR}/lib/monitor.sh"
+else
+    log_error "Não foi possível carregar lib/monitor.sh"
+    exit 1
+fi
+
 # Exibir menu de ajuda
 show_help() {
     cat << EOF
@@ -27,16 +34,17 @@ Opções:
   -h, --help        Exibe esta mensagem de ajuda
   -v, --version     Exibe a versão do toolkit
   -c, --check       Executa validação dos pré-requisitos do ambiente
+  -m, --monitor     Executa o relatório completo de monitorização do sistema
 
 Exemplo:
-  $ ./bin/sysops.sh --check
+  $ ./bin/sysops.sh --monitor
 EOF
 }
 
 # Função para verificar o ambiente
 check_environment() {
     log_info "Verificando dependências do sistema..."
-    local dependencies=("tar" "df" "free" "bash")
+    local dependencies=("tar" "df" "free" "ps" "awk" "bash")
     local missing=0
 
     for cmd in "${dependencies[@]}"; do
@@ -66,10 +74,13 @@ main() {
             show_help
             ;;
         -v|--version)
-            echo "CLI-Ops Toolkit v0.1.0"
+            echo "CLI-Ops Toolkit v0.2.0"
             ;;
         -c|--check)
             check_environment
+            ;;
+        -m|--monitor)
+            run_system_diagnostics
             ;;
         *)
             log_error "Opção inválida: $1"
