@@ -23,6 +23,13 @@ else
     exit 1
 fi
 
+if [[ -f "${SCRIPT_DIR}/lib/backup.sh" ]]; then
+    source "${SCRIPT_DIR}/lib/backup.sh"
+else
+    log_error "Não foi possível carregar lib/backup.sh"
+    exit 1
+fi
+
 # Exibir menu de ajuda
 show_help() {
     cat << EOF
@@ -35,16 +42,17 @@ Opções:
   -v, --version     Exibe a versão do toolkit
   -c, --check       Executa validação dos pré-requisitos do ambiente
   -m, --monitor     Executa o relatório completo de monitorização do sistema
+  -b, --backup      Executa a rotina de backup com rotação automática
 
 Exemplo:
-  $ ./bin/sysops.sh --monitor
+  $ ./bin/sysops.sh --backup
 EOF
 }
 
 # Função para verificar o ambiente
 check_environment() {
     log_info "Verificando dependências do sistema..."
-    local dependencies=("tar" "df" "free" "ps" "awk" "bash")
+    local dependencies=("tar" "df" "free" "ps" "awk" "bash" "wc")
     local missing=0
 
     for cmd in "${dependencies[@]}"; do
@@ -74,13 +82,16 @@ main() {
             show_help
             ;;
         -v|--version)
-            echo "CLI-Ops Toolkit v0.2.0"
+            echo "CLI-Ops Toolkit v0.3.0"
             ;;
         -c|--check)
             check_environment
             ;;
         -m|--monitor)
             run_system_diagnostics
+            ;;
+        -b|--backup)
+            run_backup
             ;;
         *)
             log_error "Opção inválida: $1"

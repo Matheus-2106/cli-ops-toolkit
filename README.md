@@ -36,3 +36,7 @@ graph TD
 
 Desenvolvido por **Matheus Linhares Teixeira**
 - LinkedIn: [https://www.linkedin.com/in/matheus-linhares-teixeira-0a5589335/]
+
+## Licença
+
+Este projeto está licenciado sob a [GNU General Public License v3.0 (GPLv3)](LICENSE).

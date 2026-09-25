@@ -61,7 +61,7 @@ check_cpu_and_processes() {
 # Função consolidada de diagnósticos
 run_system_diagnostics() {
     echo -e "\n=========================================="
-    echo -e "     📊 RELATÓRIO DE DIAGNÓSTICO DO SISTEMA"
+    echo -e "     RELATÓRIO DE DIAGNÓSTICO DO SISTEMA"
     echo -e "==========================================\n"
     
     check_memory
